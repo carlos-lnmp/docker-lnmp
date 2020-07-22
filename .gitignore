@@ -18,3 +18,4 @@
 /conf/conf.d/xinying.conf
 /log/nginx/access.log
 /log/nginx/error.log
+.idea
