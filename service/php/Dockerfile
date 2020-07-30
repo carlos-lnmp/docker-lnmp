@@ -1,4 +1,4 @@
-FROM php:7.3.18-fpm
+FROM php:7.3.18-fpm-buster
 MAINTAINER Carlos <984010062.com>
 
 # docker中php扩展安装方式
@@ -37,7 +37,7 @@ RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 RUN apt-get update \
     && apt-get install -y \
         curl \
-        git \
+#        git \
         wget \
         zip \
         openssl \
@@ -52,14 +52,14 @@ RUN apt-get update \
         libpng-dev \
         libwebp-dev \
         libzip-dev \
-    && apt-get clean 
-#    && apt-get autoremove
+    && apt-get clean \
+    && apt-get autoremove
 
 # Composer安装
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
-    && composer self-update --clean-backups 
-#    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+    && composer self-update --clean-backups \
+    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 # gd 扩展安装 完整命令
 RUN docker-php-ext-configure gd \
