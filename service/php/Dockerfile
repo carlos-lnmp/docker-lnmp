@@ -1,5 +1,5 @@
-FROM php:7.3.18-fpm-buster
-MAINTAINER Carlos <984010062.com>
+FROM php:7.3.18-fpm
+MAINTAINER crazycarlos <984010062.com>
 
 # docker中php扩展安装方式
 # 1、PHP源码文件目录自带扩展 docker-php-ext-install直接安装
@@ -33,11 +33,11 @@ ENV HIREDIS_VERSION 0.14.1
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo 'Asia/Shanghai' > /etc/timezone
 
+
 # 扩展依赖
 RUN apt-get update \
     && apt-get install -y \
         curl \
-#        git \
         wget \
         zip \
         openssl \
@@ -51,9 +51,9 @@ RUN apt-get update \
         libjpeg-dev \
         libpng-dev \
         libwebp-dev \
-        libzip-dev \
-    && apt-get clean \
-    && apt-get autoremove
+        libzip-dev 
+#    && apt-get clean \
+#    && apt-get autoremove
 
 # Composer安装
 RUN curl -sS https://getcomposer.org/installer | php \

@@ -21,9 +21,9 @@ services:
       TZ: "${TZ}"
     container_name: "nginx"
   php-fpm:
-    build: 
-      context: ./service/php  ### 使用dockerfile 文件
-    #image: php:7.2-fpm
+    # build: 
+      # context: ./service/php  ### 使用dockerfile 文件
+    image: registry.cn-chengdu.aliyuncs.com/docker-carlos/php.7.3.18-fpm:latest
     restart: always
     ports:
       - "9000:9000"
@@ -40,24 +40,24 @@ services:
     networks:
       - app_net
     container_name: "php"
-  # php5-fpm:
-  #   # build: 
-  #     # context: ./service/php  ### 使用dockerfile 文件
-  #   image: php:5.6-fpm
-  #   restart: always
-  #   ports:
-  #     - "9001:9000"
-  #   depends_on:
-  #     - mysql
-  #   links:
-  #     - mysql
-  #     - redis
-  #   volumes:
-  #     - ${PHP56_SOURCE_SHARE_DIR}:/var/www/html56
-  #     - ${PHP56_LOG_DIR}:/var/log/php
-  #   networks:
-  #     - app_net
-  #   container_name: "php5"
+  php5-fpm:
+    # build: 
+      # context: ./service/php5  ### 使用dockerfile 文件
+    image: php:5.6-fpm
+    restart: always
+    ports:
+      - "9001:9000"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+      - redis
+    volumes:
+      - ${PHP56_SOURCE_SHARE_DIR}:/var/www/html56
+      - ${PHP56_LOG_DIR}:/var/log/php
+    networks:
+      - app_net
+    container_name: "php5"
   mysql:
     image: mysql:5.7
     restart: always
