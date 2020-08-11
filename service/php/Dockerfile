@@ -104,19 +104,19 @@ RUN wget http://pecl.php.net/get/mongodb-${MONGODB_VERSION}.tgz -O /tmp/mongodb.
 
 
 # xhprof github上下载支持php7的扩展 安装 开启扩展
-RUN wget https://github.com/longxinH/xhprof/archive/v${XHPROF_VERSION}.tar.gz -O /tmp/xhprof.tar.gz \
-    && mkdir -p /tmp/xhprof \
-    && tar -xf /tmp/xhprof.tar.gz -C /tmp/xhprof --strip-components=1 \
-    && rm /tmp/xhprof.tar.gz \
-    && ( \
-        cd /tmp/xhprof/extension \
-        && phpize \
-        && ./configure  \
-        && make -j$(nproc) \
-        && make install \
-    ) \
-    && rm -r /tmp/xhprof \
-    && docker-php-ext-enable xhprof
+#RUN wget https://github.com/longxinH/xhprof/archive/v${XHPROF_VERSION}.tar.gz -O /tmp/xhprof.tar.gz \
+#    && mkdir -p /tmp/xhprof \
+#    && tar -xf /tmp/xhprof.tar.gz -C /tmp/xhprof --strip-components=1 \
+#    && rm /tmp/xhprof.tar.gz \
+#    && ( \
+#        cd /tmp/xhprof/extension \
+#        && phpize \
+#        && ./configure  \
+#        && make -j$(nproc) \
+#        && make install \
+#    ) \
+#    && rm -r /tmp/xhprof \
+#    && docker-php-ext-enable xhprof
 
 
 # Hiredis依赖安装
