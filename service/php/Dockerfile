@@ -14,6 +14,9 @@ ENV PHPREDIS_VERSION 5.2.2
 # msgpack扩展
 ENV MSGPACK_VERSION 2.1.0
 
+# memcache扩展
+ENV MEMCACHED_VERSION 4.0.5.2
+
 # memcached扩展
 ENV MEMCACHED_VERSION 3.1.5
 
@@ -95,6 +98,12 @@ RUN wget http://pecl.php.net/get/memcached-${MEMCACHED_VERSION}.tgz -O /tmp/memc
     && pecl install /tmp/memcached.tgz \
     && rm -rf /tmp/memcached.tgz \
     && docker-php-ext-enable memcached
+
+# memcache 扩展下载 pecl本地安装 开启扩展
+RUN wget http://pecl.php.net/get/memcache-${MEMCACHED_VERSION}.tgz -O /tmp/memcache.tgz \
+    && pecl install /tmp/memcache.tgz \
+    && rm -rf /tmp/memcache.tgz \
+    && docker-php-ext-enable memcache
 
 # mongodb 扩展下载 pecl本地安装 开启扩展 前面已经通过 
 RUN wget http://pecl.php.net/get/mongodb-${MONGODB_VERSION}.tgz -O /tmp/mongodb.tgz \
