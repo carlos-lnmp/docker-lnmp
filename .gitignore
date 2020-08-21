@@ -5,14 +5,12 @@
 /data/mysql/fives
 /data/mysql/jiaoyunyoupin
 /data/mysql/oa
-/data/mysql/ptcms
 /data/mysql/qingzong
 /data/mysql/repair
 /data/mysql/xinying
 /conf/conf.d/chuwei.conf
 /conf/conf.d/jiaoyun.conf
 /conf/conf.d/oa.conf
-/conf/conf.d/ptcms-master.conf
 /conf/conf.d/qingzong.conf
 /conf/conf.d/repair-php.conf
 /conf/conf.d/s8.conf
