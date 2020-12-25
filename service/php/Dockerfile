@@ -54,32 +54,39 @@ RUN apt-get update \
         libjpeg-dev \
         libpng-dev \
         libwebp-dev \
-        libzip-dev 
-#    && apt-get clean \
-#    && apt-get autoremove
-
-# Composer安装
-RUN curl -sS https://getcomposer.org/installer | php \
-    && mv composer.phar /usr/local/bin/composer \
-    && composer self-update --clean-backups \
-    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-
-# gd 扩展安装 完整命令
-RUN docker-php-ext-configure gd \
+        libzip-dev \
+    && docker-php-ext-configure gd \
         --with-webp-dir=/usr/include/webp \
         --with-jpeg-dir=/usr/include \
         --with-png-dir=/usr/include \
         --with-freetype-dir=/usr/include/freetype2 \
-    && docker-php-ext-install gd
+    && docker-php-ext-configure opcache --enable-opcache \
+    && docker-php-ext-install -j$(nproc) gd mysqli pdo_mysql bcmath zip opcache
+#    && apt-get clean \
+#    && apt-get autoremove
+
+# gd 扩展安装 完整命令
+# RUN docker-php-ext-configure gd \
+#         --with-webp-dir=/usr/include/webp \
+#         --with-jpeg-dir=/usr/include \
+#         --with-png-dir=/usr/include \
+#         --with-freetype-dir=/usr/include/freetype2 \
+#     && docker-php-ext-install gd
 
 # Mysqli 扩展 自带 直接安装即可(当前数据库使用的mysqli查询的)
-RUN docker-php-ext-install mysqli
+# RUN docker-php-ext-install mysqli
 
 # PDO 扩展 自带 直接安装即可
-RUN docker-php-ext-install pdo_mysql
+# RUN docker-php-ext-install pdo_mysql
 
 # Bcmath 扩展 自带 直接安装即可
-RUN docker-php-ext-install bcmath
+# RUN docker-php-ext-install bcmath
+
+# opcache 扩展安装 
+# RUN docker-php-ext-configure opcache --enable-opcache \
+#     && docker-php-ext-install opcache
+
+# RUN docker-php-ext-install zip
 
 # Redis 扩展下载 pecl本地安装 开启扩展
 RUN wget http://pecl.php.net/get/redis-${PHPREDIS_VERSION}.tgz -O /tmp/redis.tgz \
@@ -156,11 +163,8 @@ RUN wget https://github.com/swoole/swoole-src/archive/v${SWOOLE_VERSION}.tar.gz 
     && rm -r /tmp/swoole \
     && docker-php-ext-enable swoole
 
-# opcache 扩展安装 
-RUN docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install opcache
-
-RUN apt-get update && \
-    apt-get install -y \
-    libzip-dev \
-    && docker-php-ext-install zip
-    
+# Composer安装
+RUN curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer \
+    && composer self-update --clean-backups \
+    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
