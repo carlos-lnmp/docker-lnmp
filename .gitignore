@@ -9,6 +9,11 @@
 /data/mysql/qingzong
 /data/mysql/repair
 /data/mysql/xinying
+/data/mysql/ib_buffer_pool
+/data/mysql/ib_logfile0
+/data/mysql/ib_logfile1
+/data/mysql/ibdata1
+/data/mysql/ibtmp1
 /conf/conf.d/chuwei.conf
 /conf/conf.d/jiaoyun.conf
 /conf/conf.d/oa.conf
