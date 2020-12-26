@@ -1,6 +1,7 @@
 /html/
 /html56/
 /projectFile
+/data/mysql
 /data/mysql/chuwei
 /data/mysql/fives
 /data/mysql/jiaoyunyoupin
@@ -8,7 +9,6 @@
 /data/mysql/qingzong
 /data/mysql/repair
 /data/mysql/xinying
-/data/mysql/
 /conf/conf.d/chuwei.conf
 /conf/conf.d/jiaoyun.conf
 /conf/conf.d/oa.conf
