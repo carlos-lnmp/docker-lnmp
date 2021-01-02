@@ -21,9 +21,9 @@ services:
       TZ: "${TZ}"
     container_name: "nginx"
   php-fpm:
-    # build: 
-      # context: ./service/php  ### 使用dockerfile 文件
-    image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:7.3.18
+    build:
+      context: ./service/php  # 使用dockerfile 文件
+    # image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:7.3.18
     restart: always
     ports:
       - "9000:9000"
@@ -41,9 +41,9 @@ services:
       - app_net
     container_name: "php"
   php5-fpm:
-    # build: 
-      # context: ./service/php5  ### 使用dockerfile 文件
-    image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:5.6
+    build:
+      context: ./service/php5  # 使用dockerfile 文件
+    #image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:5.6
     restart: always
     ports:
       - "9001:9000"
