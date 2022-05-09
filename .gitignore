@@ -1,7 +1,9 @@
 /html/
 /html56/
-/projectFile
+/project
 /data/mysql/
 /log/nginx
 .idea
 /conf/nginx/conf.d/website/
+demo.txt
+.env
