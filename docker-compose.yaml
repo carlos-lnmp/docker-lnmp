@@ -7,7 +7,8 @@ services:
       - "8080:80"
       - "443:443"
     depends_on:
-      - php-fpm
+      - php73-fpm
+      - php56-fpm
     volumes:
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf
       - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d
@@ -20,9 +21,17 @@ services:
     environment:
       TZ: "${TZ}"
     container_name: "nginx"
-  php-fpm:
+  # php74-cli:
+  #   build:
+  #     context: ./service/php74
+  #   restart: always
+  #   ports:
+  #     - "9002:9000"
+  #     - "9501:9501"
+  #     - "9502:9502"
+  php73-fpm:
     build:
-      context: ./service/php  # 使用dockerfile 文件
+      context: ./service/php73  # 使用dockerfile 文件
     # image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:7.3.18
     restart: always
     ports:
@@ -39,11 +48,11 @@ services:
       - ${PHP_LOG_DIR}:/var/log/php
     networks:
       - app_net
-    container_name: "php"
-  php5-fpm:
+    container_name: "php73"
+  php56-fpm:
     build:
-      context: ./service/php5  # 使用dockerfile 文件
-    #image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:5.6
+      context: ./service/php56  # 使用dockerfile 文件
+    # image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:5.6
     restart: always
     ports:
       - "9001:9000"
@@ -57,7 +66,7 @@ services:
       - ${PHP56_LOG_DIR}:/var/log/php
     networks:
       - app_net
-    container_name: "php5"
+    container_name: "php56"
   mysql:
     image: mysql:5.7
     restart: always

@@ -6,6 +6,7 @@ php7.3.18 php5.6 mysql5.7
 ## 启动
 可以下载阿里云我生成好的镜像，也可以再本地通过命令生成本地镜像
 阿里云镜像
+阿里云镜像下载密码 tester@1212.com
 ```
 docker pull registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:7.3.18
 docker pull registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:5.6
