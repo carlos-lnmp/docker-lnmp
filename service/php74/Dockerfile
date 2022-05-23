@@ -1,6 +1,6 @@
-FROM php:7.4.29-fpm
+FROM php:7.4-alpine3.12
 
-LABEL maintainer="crazycarlos <984010062@qq.com>" version="7.4.29" description="php:7.4.29"
+LABEL maintainer="crazycarlos <984010062@qq.com>" version="7.4" description="php:7.4-alpine3.12"
 
 # 扩展版本号定义 
 
@@ -41,16 +41,14 @@ RUN apt-get update \
         libpcre3-dev \
         libmemcached-dev \
         zlib1g-dev \
-        libfreetype6-dev \
+        libwebp-dev \
         libjpeg-dev \
         libpng-dev \
-        libwebp-dev \
+        libfreetype6-dev \
         libzip-dev \
     && docker-php-ext-configure gd \
-        --with-webp-dir=/usr/include/webp \
-        --with-jpeg-dir=/usr/include \
-        --with-png-dir=/usr/include \
-        --with-freetype-dir=/usr/include/freetype2 \
+        --with-jpeg=/usr/include \
+        --with-freetype=/usr/include/freetype2 \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install -j$(nproc) bz2 dba sockets gd mysqli pdo_mysql bcmath zip opcache \
     \
