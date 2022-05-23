@@ -1,6 +1,6 @@
-FROM php:7.4-alpine3.12
+FROM php:7.4.29-fpm
 
-LABEL maintainer="crazycarlos <984010062@qq.com>" version="7.4" description="php:7.4-alpine3.12"
+LABEL maintainer="crazycarlos <984010062@qq.com>" version="7.4.29" description="php:7.4.29"
 
 # 扩展版本号定义 
 
