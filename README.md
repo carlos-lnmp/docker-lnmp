@@ -32,6 +32,8 @@ dlnmp
 |--service                镜像文件
    |--php56
    |--php73
+   |--php74
+   |--php80
 ```
 
 ## 拉取镜像
