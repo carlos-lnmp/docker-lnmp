@@ -38,7 +38,6 @@ RUN apt-get update \
         libz-dev \
         libbz2-dev \
         libssl-dev \
-        libnghttp2-dev \
         libpcre3-dev \
         libmemcached-dev \
         zlib1g-dev \
