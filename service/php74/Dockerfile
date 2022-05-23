@@ -1,11 +1,6 @@
-FROM php:7.4-alpine3.12
+FROM php:7.4.29-fpm
 
-LABEL maintainer="crazycarlos <984010062@qq.com>" version="7.4" description="php:7.4-alpine3.12"
-
-# docker中php扩展安装方式
-# 1、PHP源码文件目录自带扩展 docker-php-ext-install直接安装
-# 2、pecl扩展 因为一些扩展不包含在PHP源码文件中，PHP 的扩展库仓库中存在。用 pecl install 安装扩展，再用 docker-php-ext-enable 命令 启用扩展
-# 3、其他扩展 一些既不在 PHP 源码包，也不再 PECL 扩展仓库中的扩展，可以通过下载扩展程序源码，编译安装的方式安装
+LABEL maintainer="crazycarlos <984010062@qq.com>" version="7.4.29" description="php:7.4.29"
 
 # 扩展版本号定义 
 
@@ -24,7 +19,7 @@ ENV MEMCACHED_VERSION 3.1.5
 # mongodb扩展 pecl扩展
 ENV MONGODB_VERSION 1.7.4
 
-# swoole安装 如果以后用到的话，不用再安装了，4.0之后性能更好 https://github.com/swoole/swoole-src
+# swoole安装
 ENV SWOOLE_VERSION 4.5.1
 
 # 设置时间
