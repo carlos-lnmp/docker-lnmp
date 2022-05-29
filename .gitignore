@@ -1,0 +1,10 @@
+/html/
+/html56/
+/project
+/data/mysql/
+/data/redis/
+/log/nginx
+.idea
+/conf/nginx/conf.d/website/
+demo.txt
+.env

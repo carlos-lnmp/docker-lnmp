@@ -1,0 +1,103 @@
+version: "3"
+services:
+  nginx:
+    image: nginx
+    restart: always
+    ports:
+      - "8080:80"
+      - "443:443"
+    depends_on:
+      - php73-fpm
+      - php56-fpm
+    volumes:
+      - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf
+      - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d
+      - ${NGINX_SSL_DIR}:/etc/letsencrypt
+      - ${SOURCE_SHARE_DIR}:/var/www/html
+      - ${PHP56_SOURCE_SHARE_DIR}:/var/www/html56
+      - ${NGINX_LOG_DIR}:/var/log/nginx
+    networks:
+      - app_net
+    environment:
+      TZ: "${TZ}"
+    container_name: "nginx"
+  # php74-cli:
+  #   build:
+  #     context: ./service/php74
+  #   restart: always
+  #   ports:
+  #     - "9002:9000"
+  #     - "9501:9501"
+  #     - "9502:9502"
+  php73-fpm:
+    build:
+      context: ./service/php73  # 使用dockerfile 文件
+    # image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:7.3.18
+    restart: always
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+      - redis
+    volumes:
+      - ${PHP_INI_FILE}:/usr/local/etc/php/php.ini
+      - ${PHP_CONFD_INI_FILE}:/usr/local/etc/php/conf.d/php.ini
+      - ${SOURCE_SHARE_DIR}:/var/www/html
+      - ${PHP_LOG_DIR}:/var/log/php
+    networks:
+      - app_net
+    container_name: "php73"
+  php56-fpm:
+    build:
+      context: ./service/php56  # 使用dockerfile 文件
+    # image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:5.6
+    restart: always
+    ports:
+      - "9001:9000"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+      - redis
+    volumes:
+      - ${PHP56_SOURCE_SHARE_DIR}:/var/www/html56
+      - ${PHP56_LOG_DIR}:/var/log/php
+    networks:
+      - app_net
+    container_name: "php56"
+  mysql:
+    image: mysql:5.7
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ${MYSQL_DATA_DIR}:/var/lib/mysql
+      - ${MYSQL_CONF_FILE}:/etc/mysql/my.cnf
+      - ${MYSQL_INIT_DIR}:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: "$TZ"
+    networks:
+      - app_net
+    container_name: "mysql"
+  redis:
+    image: redis
+    restart: always
+    command: redis-server --requirepass carlos@20200519
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - app_net
+    container_name: "redis"
+networks:
+  app_net:
+    driver: bridge
+
+
+
+    
