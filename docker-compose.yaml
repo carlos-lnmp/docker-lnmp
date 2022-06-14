@@ -7,8 +7,9 @@ services:
       - "8080:80"
       - "443:443"
     depends_on:
-      - php73-fpm
       - php56-fpm
+      - php73-fpm
+      - php74-fpm
     volumes:
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf
       - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d
@@ -21,21 +22,31 @@ services:
     environment:
       TZ: "${TZ}"
     container_name: "nginx"
-  # php74-cli:
-  #   build:
-  #     context: ./service/php74
-  #   restart: always
-  #   ports:
-  #     - "9002:9000"
-  #     - "9501:9501"
-  #     - "9502:9502"
-  php73-fpm:
-    build:
-      context: ./service/php73  # 使用dockerfile 文件
-    # image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:7.3.18
+  php56-fpm:
+    # build:
+    #   context: ./service/php56  # 使用dockerfile 文件
+    image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:5.6
     restart: always
     ports:
       - "9000:9000"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+      - redis
+    volumes:
+      - ${PHP56_SOURCE_SHARE_DIR}:/var/www/html56
+      - ${PHP56_LOG_DIR}:/var/log/php
+    networks:
+      - app_net
+    container_name: "php56"
+  php73-fpm:
+    # build:
+    #   context: ./service/php73  # 使用dockerfile 文件
+    image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:7.3.18
+    restart: always
+    ports:
+      - "9001:9000"
     depends_on:
       - mysql
     links:
@@ -49,24 +60,41 @@ services:
     networks:
       - app_net
     container_name: "php73"
-  php56-fpm:
-    build:
-      context: ./service/php56  # 使用dockerfile 文件
-    # image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:5.6
+  php74-fpm:
+    # build:
+    #   context: ./service/php74  # 使用dockerfile 文件
+    image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:7.4
     restart: always
     ports:
-      - "9001:9000"
+      - "9002:9000"
     depends_on:
       - mysql
     links:
       - mysql
       - redis
     volumes:
-      - ${PHP56_SOURCE_SHARE_DIR}:/var/www/html56
-      - ${PHP56_LOG_DIR}:/var/log/php
+      - ${SOURCE_SHARE_DIR}:/var/www/html
     networks:
       - app_net
-    container_name: "php56"
+    container_name: "php74"
+  php80-fpm:
+    # build:
+    #   context: ./service/php80  # 使用dockerfile 文件
+    image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:8.0
+    restart: always
+    ports:
+#      - "9003:9000"
+      - "9503:9503"
+#    depends_on:
+#      - mysql
+#    links:
+#      - mysql
+#      - redis
+    volumes:
+      - ${SOURCE_SHARE_DIR}:/var/www/html
+#    networks:
+#      - app_net
+    container_name: "php80-hyperf"
   mysql:
     image: mysql:5.7
     restart: always
