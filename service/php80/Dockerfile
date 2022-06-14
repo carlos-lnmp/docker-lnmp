@@ -31,23 +31,23 @@ RUN apk update \
     && composer self-update --clean-backups \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
     \
-    && pecl install protobuf-3.21.0 \
-    && docker-php-ext-enable protobuf \
-    \
-    && pecl install redis-5.3.6 \
-    && docker-php-ext-enable redis \
-    \
-    && pecl install msgpack-2.1.2 \
-    && docker-php-ext-enable msgpack \
-    \
-    && pecl install memcached-3.2.0 \
-    && docker-php-ext-enable memcached \
-    \
-    && pecl install memcache-8.0 \
-    && docker-php-ext-enable memcache \
-    \
-    && pecl install mongodb-1.12.1 \
-    && docker-php-ext-enable mongodb \
-    \
-    && pecl install swoole-4.6.7 \
-    && docker-php-ext-enable swoole
+#    && pecl install protobuf-3.21.0 \
+#    && docker-php-ext-enable protobuf \
+#    \
+#    && pecl install redis-5.3.6 \
+#    && docker-php-ext-enable redis \
+#    \
+#    && pecl install msgpack-2.1.2 \
+#    && docker-php-ext-enable msgpack \
+#    \
+#    && pecl install memcached-3.2.0 \
+#    && docker-php-ext-enable memcached \
+#    \
+#    && pecl install memcache-8.0 \
+#    && docker-php-ext-enable memcache \
+#    \
+#    && pecl install mongodb-1.12.1 \
+#    && docker-php-ext-enable mongodb \
+#    \
+#    && pecl install swoole-4.6.7 \
+#    && docker-php-ext-enable swoole
