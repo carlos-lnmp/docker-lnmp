@@ -8,8 +8,8 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && apk del tzdata
 
 # 扩展依赖
-RUN apt update \
-    && apt add --no-cache \
+RUN apk update \
+    && apk add --no-cache \
         curl \
         openssl \
         libz-dev \
