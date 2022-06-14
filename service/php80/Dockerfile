@@ -8,8 +8,8 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && apk del tzdata
 
 # 扩展依赖
-RUN apt-get update \
-    && apt-get install -y \
+RUN apt update \
+    && apt add --no-cache \
         curl \
         openssl \
         libz-dev \
@@ -52,8 +52,4 @@ RUN apt-get update \
     && docker-php-ext-enable mongodb \
     \
     && pecl install swoole-4.6.7 \
-    && docker-php-ext-enable swoole \
-    \
-    && cd ~ \
-    \
-    && apt-get -y clean
+    && docker-php-ext-enable swoole
