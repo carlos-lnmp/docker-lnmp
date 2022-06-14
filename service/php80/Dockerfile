@@ -10,15 +10,10 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 # 扩展依赖
 RUN apk update \
     && apk add --no-cache \
+        libc-dev make \
         curl \
         openssl \
-#        libz-dev \
-#        zlib1g-dev \
         libzip-dev \
-#        libbz2-dev \
-#        libssl-dev \
-#        libnghttp2-dev \
-#        libpcre3-dev \
         libmemcached-dev \
         libpng-dev \
         freetype-dev \
