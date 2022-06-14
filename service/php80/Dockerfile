@@ -12,13 +12,13 @@ RUN apk update \
     && apk add --no-cache \
         curl \
         openssl \
-        libz-dev \
-        zlib1g-dev \
+#        libz-dev \
+#        zlib1g-dev \
         libzip-dev \
-        libbz2-dev \
-        libssl-dev \
-        libnghttp2-dev \
-        libpcre3-dev \
+#        libbz2-dev \
+#        libssl-dev \
+#        libnghttp2-dev \
+#        libpcre3-dev \
         libmemcached-dev \
         libpng-dev \
         freetype-dev \
