@@ -11,6 +11,7 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 RUN apk update \
     && apk add --no-cache \
         curl \
+        wget \
         libc-dev \
         openssl \
         libmemcached-dev \
@@ -27,6 +28,7 @@ RUN apk update \
     && chmod -R 777 /usr/local/bin/composer \
     && composer self-update --clean-backups \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
+    && composer -v \
     \
     && pecl install protobuf-3.21.0 \
     && docker-php-ext-enable protobuf \
