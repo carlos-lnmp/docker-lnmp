@@ -1,4 +1,4 @@
-FROM php:8.0-alpine3.15
+FROM php:8.0-alpine3.16
 
 LABEL maintainer="crazycarlos <984010062@qq.com>" version="8.0" description="php:8.0-fpm-alpine3.16"
 
