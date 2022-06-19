@@ -21,7 +21,7 @@ RUN apk update \
     && php -m \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install -j$(nproc) bz2 dba sockets gd bcmath mysqli pcntl opcache \
+    && docker-php-ext-install -j$(nproc) gd bcmath mysqli pcntl opcache \
     \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
