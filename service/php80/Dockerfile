@@ -16,6 +16,7 @@ RUN apk update \
         libpng-dev \
         freetype-dev \
         libjpeg-turbo-dev \
+    && php -m \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install -j$(nproc) gd bcmath mbstring openssl json pcntl opcache
