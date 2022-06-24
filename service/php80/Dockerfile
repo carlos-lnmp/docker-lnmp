@@ -37,14 +37,14 @@ RUN apk update \
     \
     && useradd carlos \
     && passwd carlos \
-    && su - carlos \
+    && su carlos \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && chmod -R 777 /usr/local/bin/composer \
     && composer self-update --clean-backups \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
     && composer -v \
-    && su - root \
+    && su root \
     \
     && pecl install /tmp/resources/protobuf-${PROTOBUF_VERSION}.tgz \
     && docker-php-ext-enable protobuf \
