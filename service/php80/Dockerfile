@@ -20,11 +20,9 @@ COPY resources/ /tmp/resources/
 # 扩展依赖
 RUN apk update \
     && apk add --no-cache \
-        gcc \
-        make \
-        zip \
-        libc-dev \
         curl \
+        wget \
+        libc-dev \
         openssl \
         zip \
         libzip-dev \
@@ -32,9 +30,10 @@ RUN apk update \
         libpng-dev \
         freetype-dev \
         libjpeg-turbo-dev \
+    && php -m \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install -j$(nproc) bz2 dba sockets gd bcmath openssl json pcntl zip opcache \
+    && docker-php-ext-install -j$(nproc) gd bcmath pcntl zip opcache \
     \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
