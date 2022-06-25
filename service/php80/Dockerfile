@@ -17,7 +17,7 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 
 #COPY resources/ /tmp/resources/
 
-RUN && install-php-extensions gd bamath pcntl opcache redis protobuf \
+RUN install-php-extensions gd bamath pcntl opcache redis protobuf \
     && php -v \
     && php -m
 
