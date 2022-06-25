@@ -65,10 +65,11 @@ RUN apk update \
     \
     && pecl install /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz \
     && docker-php-ext-enable memcache \
-    \
-    && pecl channel-update pecl.php.net \
-    && pecl install /tmp/resources/mongodb-${MONGODB_VERSION}.tgz \
-    && docker-php-ext-enable mongodb \
+#    \
+#    && pecl channel-update pecl.php.net \
+#    && pecl install /tmp/resources/mongodb-${MONGODB_VERSION}.tgz \
+#    && echo "extension=mongodb.so" >> `/usr/local/php7/bin/php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` \
+#    && docker-php-ext-enable mongodb \
     \
     && pecl install /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz \
     && docker-php-ext-enable swoole \
