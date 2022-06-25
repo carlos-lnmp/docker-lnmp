@@ -48,7 +48,6 @@ RUN apk update \
     && composer self-update --clean-backups \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
     && composer -v \
-    && su root \
     \
     && pecl install /tmp/resources/protobuf-${PROTOBUF_VERSION}.tgz \
     && docker-php-ext-enable protobuf \
