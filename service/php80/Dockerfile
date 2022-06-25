@@ -20,8 +20,15 @@ COPY resources/ /tmp/resources/
 # 扩展依赖
 RUN apk update \
     && apk add --no-cache \
+        build_deps \
+        bash \
+        gcc \
+        g++ \
         m4 \
         autoconf \
+        make \
+        openssl-dev \
+        pcre-dev \
         wget \
         curl \
         libpng-dev \
@@ -39,8 +46,10 @@ RUN apk update \
     && composer self-update --clean-backups \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
     \
-    && pecl install /tmp/resources/protobuf-${PROTOBUF_VERSION}.tgz \
+    && docker-php-source extract \
+    && /bin/bash -lc "pecl install /tmp/resources/protobuf-${PROTOBUF_VERSION}.tgz" \
     && docker-php-ext-enable protobuf \
+    && docker-php-source delete \
     \
     && pecl install /tmp/resources/redis-${PHPREDIS_VERSION}.tgz \
     && docker-php-ext-enable redis \
@@ -61,5 +70,7 @@ RUN apk update \
     && docker-php-ext-enable swoole \
     \
     && rm -rf /tmp/resources/ \
+    && apk del build_deps \
+    && rm -rf /var/cache/apk \
     && cd ~ \
     && php -m
