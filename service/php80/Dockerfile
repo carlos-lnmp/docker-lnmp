@@ -17,6 +17,9 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 
 COPY resources/ /tmp/resources/
 
+RUN useradd -ms /bin/bash  vault
+USER vault
+
 # 扩展依赖
 RUN apk update \
     && apk add --no-cache \
@@ -35,9 +38,10 @@ RUN apk update \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install -j$(nproc) gd bcmath pcntl zip opcache \
     \
-    && adduser carlos \
-#    && passwd 123456 \
-    && su carlos \
+#    && adduser carlos \
+#    && passwd carlos \
+#    && 123456 \
+#    && su carlos \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && chmod -R 777 /usr/local/bin/composer \
