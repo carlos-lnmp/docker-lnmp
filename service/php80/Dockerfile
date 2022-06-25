@@ -21,6 +21,7 @@ COPY resources/ /tmp/resources/
 RUN apk update \
     && apk add --no-cache \
         curl \
+        libzip \
         libpng-dev \
         freetype-dev \
         libjpeg-turbo-dev \
