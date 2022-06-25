@@ -33,7 +33,7 @@ RUN apk update \
     && chmod +x composer.phar \
     && mv composer.phar /usr/local/bin/composer \
     && composer self-update --clean-backups \
-    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
     \
     && pecl install /tmp/resources/protobuf-${PROTOBUF_VERSION}.tgz \
     && docker-php-ext-enable protobuf \
