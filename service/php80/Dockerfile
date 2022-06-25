@@ -33,21 +33,15 @@ RUN apk update \
         # memcached
         libmemcached-dev \
         # mongodb
-        libz-dev \
-        libbz2-dev \
-        libssl-dev \
-        libpcre3-dev \
         # gd
         libpng-dev \
         freetype-dev \
         libjpeg-turbo-dev \
-        # zip
-        libzip-dev \
     && php -v \
     && php -m \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install -j$(nproc) bz2 dba sockets gd bcmath pcntl zip opcache \
+    && docker-php-ext-install -j$(nproc) gd bcmath pcntl zip opcache \
     \
     && curl -sS https://getcomposer.org/installer | php \
     && chmod +x composer.phar \
@@ -72,6 +66,7 @@ RUN apk update \
     && pecl install /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz \
     && docker-php-ext-enable memcache \
     \
+    && pecl channel-update pecl.php.net \
     && pecl install /tmp/resources/mongodb-${MONGODB_VERSION}.tgz \
     && docker-php-ext-enable mongodb \
     \
