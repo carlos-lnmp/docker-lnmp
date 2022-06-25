@@ -32,6 +32,8 @@ RUN apk update \
         curl \
         # memcached
         libmemcached-dev \
+        # mongodb
+        libssl-dev \
         # gd
         libpng-dev \
         freetype-dev \
