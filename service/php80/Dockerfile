@@ -30,6 +30,9 @@ RUN apk update \
         pcre-dev \
         wget \
         curl \
+        # memcached
+        libmemcached \
+        # gd
         libpng-dev \
         freetype-dev \
         libjpeg-turbo-dev \
