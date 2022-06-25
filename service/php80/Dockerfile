@@ -36,7 +36,7 @@ RUN apk update \
     && docker-php-ext-install -j$(nproc) gd bcmath pcntl zip opcache \
     \
     && adduser carlos \
-    && passwd carlos123 \
+    && passwd 123456 \
     && su carlos \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
