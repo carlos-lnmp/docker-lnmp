@@ -17,9 +17,6 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 
 COPY resources/ /tmp/resources/
 
-RUN useradd -ms /bin/bash  vault
-USER vault
-
 # 扩展依赖
 RUN apk update \
     && apk add --no-cache \
