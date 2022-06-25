@@ -31,7 +31,7 @@ RUN apk update \
         wget \
         curl \
         # memcached
-        libmemcached \
+        libmemcached-dev \
         # gd
         libpng-dev \
         freetype-dev \
