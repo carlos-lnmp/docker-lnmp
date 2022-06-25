@@ -20,9 +20,6 @@ COPY resources/ /tmp/resources/
 # 扩展依赖
 RUN apk update \
     && apk add --no-cache \
-        gcc \
-        gcc-c++ \
-        make \
         wget \
         curl \
         libpng-dev \
