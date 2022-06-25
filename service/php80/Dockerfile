@@ -41,7 +41,7 @@ RUN apk update \
     && php -m \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install -j$(nproc) gd bcmath pcntl zip opcache \
+    && docker-php-ext-install -j$(nproc) gd bcmath pcntl opcache \
     \
     && curl -sS https://getcomposer.org/installer | php \
     && chmod +x composer.phar \
