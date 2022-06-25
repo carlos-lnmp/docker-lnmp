@@ -25,15 +25,11 @@ RUN apk update \
         libpng-dev \
         freetype-dev \
         libjpeg-turbo-dev \
-    && apk del libzip \
-    && wget https://libzip.org/download/libzip-1.3.2.tar.gz \
-    && tar xvf libzip-1.3.2.tar.gz \
-    && cd libzip-1.3.2 \
-    && ./configure && make && make install \
+    && php -v \
     && php -m \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install -j$(nproc) gd bcmath pcntl zip opcache \
+    && docker-php-ext-install -j$(nproc) gd bcmath pcntl opcache \
     \
     && curl -sS https://getcomposer.org/installer | php \
     && chmod +x composer.phar \
