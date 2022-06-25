@@ -1,6 +1,6 @@
-FROM php:8.0.20-fpm-alpine3.16
+FROM php:8.0.20-fpm-alpine3.15
 
-LABEL maintainer="crazycarlos <984010062@qq.com>" version="8.0" description="php:8.0-fpm-alpine3.16"
+LABEL maintainer="crazycarlos <984010062@qq.com>" version="8.0" description="php:8.0-fpm-alpine3.15"
 
 ENV PROTOBUF_VERSION 3.21.0
 ENV PHPREDIS_VERSION 5.3.6
@@ -20,11 +20,19 @@ COPY resources/ /tmp/resources/
 # 扩展依赖
 RUN apk update \
     && apk add --no-cache \
+        gcc \
+        gcc-c++ \
+        make \
+        wget \
         curl \
-        libzip-3.2.0 \
         libpng-dev \
         freetype-dev \
         libjpeg-turbo-dev \
+    && apk delete libzip \
+    && wget https://libzip.org/download/libzip-1.3.2.tar.gz \
+    && tar xvf libzip-1.3.2.tar.gz \
+    && cd libzip-1.3.2 \
+    && ./configure && make && make install \
     && php -m \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure opcache --enable-opcache \
