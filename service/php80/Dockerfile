@@ -36,8 +36,9 @@ RUN apk update \
     && docker-php-ext-install -j$(nproc) gd bcmath pcntl zip opcache \
     \
     && curl -sS https://getcomposer.org/installer | php \
+    && chmod +x composer.phar \
     && mv composer.phar /usr/local/bin/composer \
-    && chmod -R 777 /usr/local/bin/composer \
+#    && chmod +x /usr/local/bin/composer \
     && composer self-update --clean-backups \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
     \
