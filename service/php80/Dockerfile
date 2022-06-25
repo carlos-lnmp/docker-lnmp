@@ -35,13 +35,6 @@ RUN apk update \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install -j$(nproc) gd bcmath pcntl zip opcache \
     \
-    && curl -sS https://getcomposer.org/installer | php \
-    && chmod +x composer.phar \
-    && mv composer.phar /usr/local/bin/composer \
-#    && chmod +x /usr/local/bin/composer \
-    && composer self-update --clean-backups \
-    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
-    \
     && pecl install /tmp/resources/protobuf-${PROTOBUF_VERSION}.tgz \
     && docker-php-ext-enable protobuf \
     \
@@ -66,3 +59,9 @@ RUN apk update \
     && rm -rf /tmp/resources/ \
     && cd ~ \
     && php -m \
+
+RUN curl -sS https://getcomposer.org/installer | php \
+    && chmod +x composer.phar \
+    && mv composer.phar /usr/local/bin/composer \
+    && composer self-update --clean-backups \
+    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
