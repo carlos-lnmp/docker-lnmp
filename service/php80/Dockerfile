@@ -69,6 +69,5 @@ RUN apk update \
     && docker-php-ext-enable swoole \
     \
     && rm -rf /tmp/resources/ \
-    && rm -rf /var/cache/apk \
     && cd ~ \
     && php -m
