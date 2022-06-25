@@ -35,7 +35,7 @@ RUN apk update \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install -j$(nproc) gd bcmath pcntl zip opcache \
     \
-    && useradd carlos \
+    && adduser carlos \
     && passwd carlos \
     && su carlos \
     && curl -sS https://getcomposer.org/installer | php \
