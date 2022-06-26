@@ -68,19 +68,14 @@ RUN apk update \
     && /bin/bash -lc "pecl install /tmp/resources/memcached-${MEMCACHED_VERSION}.tgz" \
     && docker-php-ext-enable memcached \
     \
-#    && /bin/bash -lc "pecl install /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz" \
-#    && docker-php-ext-enable memcache \
     && tar -zxvf /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz -C /tmp/resources/ \
     && cd /tmp/resources/memcache-${MEMCACHE_VERSION} \
     && phpize \
     && ./configure --with-php-config=/usr/local/bin/php-config \
     && make -j$(nproc) \
-#    && mv memcache.loT memcache.lo \
     && make install \
     && docker-php-ext-enable memcache \
     \
-#    && /bin/bash -lc "pecl install /tmp/resources/mongodb-${MONGODB_VERSION}.tgz" \
-#    && docker-php-ext-enable mongodb \
     && tar -zxvf /tmp/resources/mongodb-${MONGODB_VERSION}.tgz -C /tmp/resources/ \
     && cd /tmp/resources/mongodb-${MONGODB_VERSION} \
     && phpize \
@@ -89,8 +84,6 @@ RUN apk update \
     && make install \
     && docker-php-ext-enable mongodb \
     \
-#    && /bin/bash -lc "pecl install /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz" \
-#    && docker-php-ext-enable swoole \
     && tar -zxvf /tmp/resources/swoole-${SWOOLE_VERSION}.tgz -C /tmp/resources/ \
     && cd /tmp/resources/swoole-${SWOOLE_VERSION} \
     && phpize \
