@@ -6,7 +6,7 @@ ENV PROTOBUF_VERSION 3.21.0
 ENV PHPREDIS_VERSION 5.3.6
 ENV MSGPACK_VERSION 2.1.2
 ENV MEMCACHED_VERSION 3.2.0
-ENV MEMCACHE_VERSION 8.0
+ENV MEMCACHE_VERSION 4.0.5.2
 ENV MONGODB_VERSION 1.12.1
 ENV SWOOLE_VERSION 4.8.10
 
@@ -66,23 +66,29 @@ RUN apk update \
     && /bin/bash -lc "pecl install /tmp/resources/memcached-${MEMCACHED_VERSION}.tgz" \
     && docker-php-ext-enable memcached \
     \
-#    && /bin/bash -lc "pecl install /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz" \
+    && /bin/bash -lc "pecl install /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz" \
+    && docker-php-ext-enable memcache \
+#    && tar -zxvf /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz -C /tmp/resources/ \
+#    && cd /tmp/resources/memcache-${MEMCACHE_VERSION} \
+#    && phpize \
+#    && docker-php-ext-configure memcache --with-php-config \
+#    && make -j$(nproc) \
+#    && make install \
 #    && docker-php-ext-enable memcache \
     \
-    && tar -zxvf /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz \
-    && cd /tmp/resources/memcache-${MEMCACHE_VERSION} \
-    && phpize \
-    && docker-php-ext-configure memcache --with-php-config \
-    && make -j$(nproc) \
-    && make install \
-    && docker-php-ext-enable memcache \
-    \
-#    && /bin/bash -lc "pecl install /tmp/resources/mongodb-${MONGODB_VERSION}.tgz" \
+    && /bin/bash -lc "pecl install /tmp/resources/mongodb-${MONGODB_VERSION}.tgz" \
+    && docker-php-ext-enable mongodb \
+#    && tar -zxvf /tmp/resources/mongodb-${MONGODB_VERSION}.tgz -C /tmp/resources/ \
+#    && cd /tmp/resources/mongodb-${MONGODB_VERSION} \
+#    && phpize \
+#    && && ./configure \
+#    && make -j$(nproc) \
+#    && make install \
 #    && docker-php-ext-enable mongodb \
     \
 #    && /bin/bash -lc "pecl install /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz" \
 #    && docker-php-ext-enable swoole \
-    && tar -zxvf /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz \
+    && tar -zxvf /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz -C /tmp/resources/ \
     && cd /tmp/resources/swoole-src-${SWOOLE_VERSION} \
     && phpize \
     && ./configure --enable-openssl --enable-http2 --enable-swoole-curl --enable-swoole-json --enable-mysqlnd \
