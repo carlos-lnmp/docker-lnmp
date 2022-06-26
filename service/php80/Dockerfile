@@ -26,10 +26,12 @@ RUN apk update \
         m4 \
         autoconf \
         make \
-        openssl-dev \
         pcre-dev \
         wget \
         curl \
+        # swoole
+        openssl-dev \
+        curl-dev \
         # mcrypt
         libmcrypt-dev \
         # memcached
@@ -92,7 +94,7 @@ RUN apk update \
     && tar -zxvf /tmp/resources/swoole-${SWOOLE_VERSION}.tgz -C /tmp/resources/ \
     && cd /tmp/resources/swoole-${SWOOLE_VERSION} \
     && phpize \
-    && ./configure --enable-openssl --enable-http2 --enable-swoole-curl --enable-swoole-json --enable-mysqlnd \
+    && ./configure --enable-openssl --enable-http2 --enable-swoole-curl --enable-swoole-json --enable-mysqlnd --with-php-config=/usr/local/bin/php-config \
     && make -j$(nproc) \
     && make install \
     && docker-php-ext-enable swoole \
