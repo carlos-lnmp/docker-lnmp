@@ -69,7 +69,7 @@ RUN apk update \
 #    && /bin/bash -lc "pecl install /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz" \
 #    && docker-php-ext-enable memcache \
     \
-    && tar -zxvf /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz -C /tmp/resources/ \
+    && tar -zxvf /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz \
     && cd /tmp/resources/memcache-${MEMCACHE_VERSION} \
     && phpize \
     && ./configure \
@@ -82,7 +82,7 @@ RUN apk update \
     \
 #    && /bin/bash -lc "pecl install /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz" \
 #    && docker-php-ext-enable swoole \
-    && tar -zxvf /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz -C /tmp/resources/ \
+    && tar -zxvf /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz \
     && cd /tmp/resources/swoole-src-${SWOOLE_VERSION} \
     && phpize \
     && ./configure --enable-openssl --enable-http2 --enable-swoole-curl --enable-swoole-json --enable-mysqlnd \
