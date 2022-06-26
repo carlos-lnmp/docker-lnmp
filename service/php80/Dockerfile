@@ -73,6 +73,7 @@ RUN apk update \
     && phpize \
     && ./configure --with-php-config=/usr/local/bin/php-config \
     && make -j$(nproc) \
+    && mv memcache.loT memcache.lo \
     && make install \
     && docker-php-ext-enable memcache \
     \
@@ -83,7 +84,6 @@ RUN apk update \
     && phpize \
     && ./configure --with-php-config=/usr/local/bin/php-config \
     && make -j$(nproc) \
-    && mv memcache.loT memcache.lo \
     && make install \
     && docker-php-ext-enable mongodb \
     \
