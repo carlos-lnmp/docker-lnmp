@@ -11,7 +11,6 @@ ENV MONGODB_VERSION 1.12.1
 ENV SWOOLE_VERSION 4.8.10
 
 # 设置时间
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo 'Asia/Shanghai' > /etc/timezone \
     && apk del tzdata
@@ -35,16 +34,16 @@ RUN apk update \
         libmcrypt-dev \
         # memcached
         libmemcached-dev \
-        # mongodb
         # gd
         libpng-dev \
         freetype-dev \
         libjpeg-turbo-dev \
     && php -v \
+    && php -i \
     && php -m \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install -j$(nproc) mcrypt mysqli pdo_mysql gd bcmath pcntl opcache \
+    && docker-php-ext-install -j$(nproc) mysqli pdo_mysql gd bcmath pcntl opcache \
     \
     && curl -sS https://getcomposer.org/installer | php \
     && chmod +x composer.phar \
@@ -67,14 +66,28 @@ RUN apk update \
     && /bin/bash -lc "pecl install /tmp/resources/memcached-${MEMCACHED_VERSION}.tgz" \
     && docker-php-ext-enable memcached \
     \
-    && /bin/bash -lc "pecl install /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz" \
+#    && /bin/bash -lc "pecl install /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz" \
+#    && docker-php-ext-enable memcache \
+    \
+    && tar -zxvf /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz -C /tmp/resources/ \
+    && cd /tmp/resources/memcache-${MEMCACHE_VERSION} \
+    && phpize \
+    && ./configure \
+    && make -j$(nproc) \
+    && make install \
     && docker-php-ext-enable memcache \
     \
-    && /bin/bash -lc "pecl install /tmp/resources/mongodb-${MONGODB_VERSION}.tgz" \
-#    && echo "extension=mongodb.so" >> `/usr/local/php7/bin/php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` \
-    && docker-php-ext-enable mongodb \
+#    && /bin/bash -lc "pecl install /tmp/resources/mongodb-${MONGODB_VERSION}.tgz" \
+#    && docker-php-ext-enable mongodb \
     \
-    && /bin/bash -lc "pecl install /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz" \
+#    && /bin/bash -lc "pecl install /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz" \
+#    && docker-php-ext-enable swoole \
+    && tar -zxvf /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz -C /tmp/resources/ \
+    && cd /tmp/resources/swoole-src-${SWOOLE_VERSION} \
+    && phpize \
+    && ./configure --enable-openssl --enable-http2 --enable-swoole-curl --enable-swoole-json --enable-mysqlnd \
+    && make -j$(nproc) \
+    && make install \
     && docker-php-ext-enable swoole \
     \
     && docker-php-source delete \
