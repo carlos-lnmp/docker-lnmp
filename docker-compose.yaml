@@ -80,21 +80,21 @@ services:
   php80-fpm:
     # build:
     #   context: ./service/php80  # 使用dockerfile 文件
-    image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:8.0
+    image: registry.cn-chengdu.aliyuncs.com/docker-carlos/dlnmp:8.0.20
     restart: always
     ports:
-#      - "9003:9000"
+      - "9003:9000"
       - "9503:9503"
-#    depends_on:
-#      - mysql
-#    links:
-#      - mysql
-#      - redis
+    depends_on:
+      - mysql
+    links:
+      - mysql
+      - redis
     volumes:
       - ${SOURCE_SHARE_DIR}:/var/www/html
-#    networks:
-#      - app_net
-    container_name: "php80-hyperf"
+    networks:
+      - app_net
+    container_name: "php80"
   mysql:
     image: mysql:5.7
     restart: always
