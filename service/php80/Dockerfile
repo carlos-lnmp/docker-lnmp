@@ -72,7 +72,7 @@ RUN apk update \
     && tar -zxvf /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz \
     && cd /tmp/resources/memcache-${MEMCACHE_VERSION} \
     && phpize \
-    && ./configure \
+    && docker-php-ext-configure memcache --with-php-config \
     && make -j$(nproc) \
     && make install \
     && docker-php-ext-enable memcache \
