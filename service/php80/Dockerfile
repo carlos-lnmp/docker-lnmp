@@ -89,8 +89,8 @@ RUN apk update \
     \
 #    && /bin/bash -lc "pecl install /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz" \
 #    && docker-php-ext-enable swoole \
-    && tar -zxvf /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz -C /tmp/resources/ \
-    && cd /tmp/resources/swoole-src-${SWOOLE_VERSION} \
+    && tar -zxvf /tmp/resources/swoole-${SWOOLE_VERSION}.tgz -C /tmp/resources/ \
+    && cd /tmp/resources/swoole-${SWOOLE_VERSION} \
     && phpize \
     && ./configure --enable-openssl --enable-http2 --enable-swoole-curl --enable-swoole-json --enable-mysqlnd \
     && make -j$(nproc) \
