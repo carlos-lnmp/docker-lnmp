@@ -6,7 +6,7 @@ ENV PROTOBUF_VERSION 3.21.0
 ENV PHPREDIS_VERSION 5.3.6
 ENV MSGPACK_VERSION 2.1.2
 ENV MEMCACHED_VERSION 3.2.0
-ENV MEMCACHE_VERSION 4.0.5.2
+ENV MEMCACHE_VERSION 8.0
 ENV MONGODB_VERSION 1.12.1
 ENV SWOOLE_VERSION 4.8.10
 
@@ -73,7 +73,7 @@ RUN apk update \
     && phpize \
     && ./configure --with-php-config=/usr/local/bin/php-config \
     && make -j$(nproc) \
-    && mv memcache.loT memcache.lo \
+#    && mv memcache.loT memcache.lo \
     && make install \
     && docker-php-ext-enable memcache \
     \
