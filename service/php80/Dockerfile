@@ -11,6 +11,7 @@ ENV MONGODB_VERSION 1.12.1
 ENV SWOOLE_VERSION 4.8.10
 
 # 设置时间
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo 'Asia/Shanghai' > /etc/timezone \
     && apk del tzdata
@@ -30,6 +31,8 @@ RUN apk update \
         pcre-dev \
         wget \
         curl \
+        # mcrypt
+        libmcrypt-dev \
         # memcached
         libmemcached-dev \
         # mongodb
@@ -41,7 +44,7 @@ RUN apk update \
     && php -m \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install -j$(nproc) gd bcmath pcntl opcache \
+    && docker-php-ext-install -j$(nproc) mcrypt mysqli pdo_mysql gd bcmath pcntl opcache \
     \
     && curl -sS https://getcomposer.org/installer | php \
     && chmod +x composer.phar \
@@ -49,30 +52,32 @@ RUN apk update \
     && composer self-update --clean-backups \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
     \
+    && pecl channel-update pecl.php.net \
     && docker-php-source extract \
+    \
     && /bin/bash -lc "pecl install /tmp/resources/protobuf-${PROTOBUF_VERSION}.tgz" \
     && docker-php-ext-enable protobuf \
-    && docker-php-source delete \
     \
-    && pecl install /tmp/resources/redis-${PHPREDIS_VERSION}.tgz \
+    && /bin/bash -lc "pecl install /tmp/resources/redis-${PHPREDIS_VERSION}.tgz" \
     && docker-php-ext-enable redis \
     \
-    && pecl install /tmp/resources/msgpack-${MSGPACK_VERSION}.tgz \
+    && /bin/bash -lc "pecl install /tmp/resources/msgpack-${MSGPACK_VERSION}.tgz" \
     && docker-php-ext-enable msgpack \
     \
-    && pecl install /tmp/resources/memcached-${MEMCACHED_VERSION}.tgz \
+    && /bin/bash -lc "pecl install /tmp/resources/memcached-${MEMCACHED_VERSION}.tgz" \
     && docker-php-ext-enable memcached \
     \
-    && pecl install /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz \
+    && /bin/bash -lc "pecl install /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz" \
     && docker-php-ext-enable memcache \
-#    \
-#    && pecl channel-update pecl.php.net \
-#    && pecl install /tmp/resources/mongodb-${MONGODB_VERSION}.tgz \
-#    && echo "extension=mongodb.so" >> `/usr/local/php7/bin/php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` \
-#    && docker-php-ext-enable mongodb \
     \
-    && pecl install /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz \
+    && /bin/bash -lc "pecl install /tmp/resources/mongodb-${MONGODB_VERSION}.tgz" \
+#    && echo "extension=mongodb.so" >> `/usr/local/php7/bin/php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` \
+    && docker-php-ext-enable mongodb \
+    \
+    && /bin/bash -lc "pecl install /tmp/resources/swoole-src-${SWOOLE_VERSION}.tgz" \
     && docker-php-ext-enable swoole \
+    \
+    && docker-php-source delete \
     \
     && rm -rf /tmp/resources/ \
     && cd ~ \
