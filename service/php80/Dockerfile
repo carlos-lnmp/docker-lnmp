@@ -40,6 +40,8 @@ RUN apk update \
         libpng-dev \
         freetype-dev \
         libjpeg-turbo-dev \
+        # zip
+        libzip-dev \
     && php -v \
     && php -i \
     && php -m \
