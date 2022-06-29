@@ -40,15 +40,13 @@ RUN apk update \
         libpng-dev \
         freetype-dev \
         libjpeg-turbo-dev \
-        # zip
-        zlib1g-dev \
-        libzip-dev \
     && php -v \
     && php -i \
     && php -m \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install -j$(nproc) sockets mysqli pdo_mysql gd bcmath pcntl opcache zip \
+    && docker-php-ext-install -j$(nproc) sockets mysqli pdo_mysql gd bcmath pcntl opcache \
+    && docker-php-ext-install -j 2 zip \
     \
     && curl -sS https://getcomposer.org/installer | php \
     && chmod +x composer.phar \
