@@ -17,7 +17,10 @@ dlnmp
          |--website       项目配置目录
       |--ssl              https配置目录
       |----nginx.conf
-   |--php
+   |--php56/conf.d/php.ini
+   |--php73/conf.d/php.ini
+   |--php74/conf.d/php.ini
+   |--php80/conf.d/php.ini
    |--redis
 |--data                   数据目录
    |--mysql
@@ -25,10 +28,16 @@ dlnmp
 |--log                    日志目录
    |--mysql               
    |--nginx               
-   |--php                 
+   |--php56                 
+   |--php73                 
+   |--php74                 
+   |--php80                 
    |--redis               
-|--html                   项目文件
-|--html56                 项目文件
+|--www                    项目文件
+   |--php56               
+   |--php73               
+   |--php74               
+   |--php80               
 |--service                镜像文件
    |--php56
    |--php73
@@ -43,13 +52,245 @@ $ git clone https://github.com/carlos-lnmp/docker-lnmp.git
 
 ## 镜像说明 
 只有php镜像是需要Dockerfile。本地构建时间会过长，推荐使用阿里云构建。
-##### Nginx
+### Nginx
 采用docker官方镜像，镜像版本使用最新版
-##### PHP7.3.18
-采用docker官方镜像，镜像版本采用php:7.3.18-fpm
-##### PHP5.6
+### PHP5.6
+
+已经安装的扩展
+```
+[PHP Modules]
+bcmath
+bz2
+Core
+ctype
+curl
+date
+dba
+dom
+ereg
+fileinfo
+filter
+ftp
+gd
+hash
+iconv
+json
+libxml
+mbstring
+memcache
+memcached
+mhash
+mongodb
+msgpack
+mysqli
+mysqlnd
+openssl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+posix
+readline
+redis
+Reflection
+session
+SimpleXML
+sockets
+SPL
+sqlite3
+standard
+tokenizer
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zip
+zlib
+
+[Zend Modules]
+Zend OPcache
+```
+
 采用docker官方镜像，镜像版本采用php:5.6-fpm
-##### MySQL5.7
+### PHP7.3.18
+
+已经安装的扩展
+```
+[PHP Modules]
+bcmath       
+bz2
+Core
+ctype        
+curl
+date
+dba
+dom
+fileinfo
+filter
+ftp
+gd
+hash
+iconv
+json
+libxml
+mbstring
+memcache
+memcached
+mongodb
+msgpack
+mysqli
+mysqlnd
+openssl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+posix
+readline
+redis
+Reflection
+session
+SimpleXML
+sockets
+sodium
+SPL
+sqlite3
+standard
+swoole
+tokenizer
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zip
+zlib
+
+[Zend Modules]
+Zend OPcache
+```
+
+采用docker官方镜像，镜像版本采用php:7.3.18-fpm
+### PHP7.4.29
+
+已经安装的扩展
+```
+[PHP Modules]
+bcmath       
+bz2
+Core
+ctype        
+curl
+date
+dba
+dom
+fileinfo
+filter
+ftp
+gd
+hash
+iconv
+json
+libxml
+mbstring
+memcache
+memcached
+mongodb
+msgpack
+mysqli
+mysqlnd
+openssl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+posix
+readline
+redis
+Reflection
+session
+SimpleXML
+sockets
+sodium
+SPL
+sqlite3
+standard
+swoole
+tokenizer
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zip
+zlib
+
+[Zend Modules]
+Zend OPcache
+```
+
+采用docker官方镜像，镜像版本采用php:7.4.29-fpm
+### PHP8.0.20-fpm-alpine3.15
+
+已经安装的扩展
+```
+[PHP Modules]
+bcmath       
+Core
+ctype        
+curl
+date
+dom
+fileinfo     
+filter       
+ftp
+gd
+hash
+iconv
+json
+libxml
+mbstring
+memcache
+memcached
+mongodb
+msgpack
+mysqli
+mysqlnd
+openssl
+pcntl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+posix
+protobuf
+readline
+redis
+Reflection
+session
+SimpleXML
+sockets
+sodium
+SPL
+sqlite3
+standard
+swoole
+tokenizer
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zip
+zlib
+
+[Zend Modules]
+Zend OPcache
+```
+
+采用docker官方镜像，镜像版本采用php:8.0.20-fpm-alpine3.15
+### MySQL5.7
 采用docker官方镜像，镜像版本采用mysql:5.7
 ##### Redis
 采用docker官方镜像，镜像版本使用最新版

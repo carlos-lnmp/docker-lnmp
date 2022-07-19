@@ -1,6 +1,6 @@
 FROM php:7.3.18-fpm
 
-LABEL maintainer="crazycarlos <984010062@qq.com>" version="${PHP_VERSION}" description="php-fpm:${PHP_VERSION}"
+LABEL maintainer="crazycarlos <984010062@qq.com>" version="7.3.18" description="php-fpm:7.3.18"
 
 # docker中php扩展安装方式
 # 1、PHP源码文件目录自带扩展 docker-php-ext-install直接安装

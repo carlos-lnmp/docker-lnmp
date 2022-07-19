@@ -1,0 +1,7 @@
+    location ~ [^/]\.php(/|$)
+    {
+        fastcgi_pass   php74-fpm:9000;
+        fastcgi_index  index.php;
+        include        /etc/nginx/conf.d/fastcgi_params;
+        include        /etc/nginx/conf.d/pathinfo;
+    }
