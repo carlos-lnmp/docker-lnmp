@@ -20,6 +20,8 @@ COPY resources/ /tmp/resources/
 # 扩展依赖
 RUN apk update \
     && apk add --no-cache \
+        git \
+        openssh \
         bash \
         gcc \
         g++ \
