@@ -9,6 +9,7 @@ ENV MEMCACHED_VERSION 3.2.0
 ENV MEMCACHE_VERSION 8.0
 ENV MONGODB_VERSION 1.12.1
 ENV SWOOLE_VERSION 4.8.10
+ENV AMQP_VERSION 1.11.0
 
 # 设置时间
 RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
@@ -72,6 +73,9 @@ RUN apk update \
     \
     && /bin/bash -lc "pecl install /tmp/resources/memcached-${MEMCACHED_VERSION}.tgz" \
     && docker-php-ext-enable memcached \
+    \
+    && /bin/bash -lc "pecl install /tmp/resources/amqp-${AMQP_VERSION}.tgz" \
+    && docker-php-ext-enable amqp \
     \
     && tar -zxvf /tmp/resources/memcache-${MEMCACHE_VERSION}.tgz -C /tmp/resources/ \
     && cd /tmp/resources/memcache-${MEMCACHE_VERSION} \
