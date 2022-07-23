@@ -32,6 +32,9 @@ RUN apk update \
         pcre-dev \
         wget \
         curl \
+        # amqp
+        cmake \
+        rabbitmq-c \
         # swoole
         openssl-dev \
         curl-dev \
