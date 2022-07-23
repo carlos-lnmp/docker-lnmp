@@ -33,8 +33,10 @@ RUN apk update \
         wget \
         curl \
         # amqp
+        libc-dev \
         cmake \
         rabbitmq-c \
+        rabbitmq-c-dev \
         # swoole
         openssl-dev \
         curl-dev \
