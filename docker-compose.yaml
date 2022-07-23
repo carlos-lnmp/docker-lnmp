@@ -35,7 +35,7 @@ services:
       - redis
     volumes:
       - ${PHP56_D_INI}:/usr/local/etc/php/conf.d/php.ini
-      - ${PHP56_RESOURCE}:/var/www/html
+      - ${PHP56_RESOURCE}:/var/www/html/php56
       - ${PHP56_LOG}:/var/log/php
     networks:
       - app_net
@@ -54,7 +54,7 @@ services:
       - redis
     volumes:
       - ${PHP73_D_INI}:/usr/local/etc/php/conf.d/php.ini
-      - ${PHP73_RESOURCE}:/var/www/html
+      - ${PHP73_RESOURCE}:/var/www/html/php73
       - ${PHP73_LOG}:/var/log/php
     networks:
       - app_net
@@ -73,7 +73,7 @@ services:
       - redis
     volumes:
       - ${PHP74_D_INI}:/usr/local/etc/php/conf.d/php.ini
-      - ${PHP74_RESOURCE}:/var/www/html
+      - ${PHP74_RESOURCE}:/var/www/html/php74
     networks:
       - app_net
     container_name: "php74"
@@ -84,17 +84,17 @@ services:
     restart: always
     ports:
       - "9003:9000"
-      - "9501:9501"
-      - "9502:9502"
-      - "9503:9503"
+      - "9501-9510:9501-9510"
     depends_on:
       - mysql
+      - rabbitmq
     links:
       - mysql
       - redis
+      - rabbitmq
     volumes:
       - ${PHP80_D_INI}:/usr/local/etc/php/conf.d/php.ini
-      - ${PHP80_RESOURCE}:/var/www/html
+      - ${PHP80_RESOURCE}:/var/www/html/php80
     networks:
       - app_net
     container_name: "php80"
@@ -125,6 +125,21 @@ services:
     networks:
       - app_net
     container_name: "redis"
+  rabbitmq:
+    image: rabbitmq:3.8.3-management
+    container_name: rabbitmq
+    restart: always
+    hostname: myRabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+      - ./data/rabbitmq:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbitmq
+      - RABBITMQ_DEFAULT_PASS=rabbitmq
+    networks:
+      - app_net
 networks:
   app_net:
     driver: bridge
