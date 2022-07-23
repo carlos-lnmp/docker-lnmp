@@ -236,6 +236,7 @@ Zend OPcache
 已经安装的扩展
 ```
 [PHP Modules]
+amqp
 bcmath       
 Core
 ctype        
