@@ -88,6 +88,7 @@ services:
     depends_on:
       - mysql
       - rabbitmq
+      - consul-server
     links:
       - mysql
       - redis
@@ -140,6 +141,47 @@ services:
       - RABBITMQ_DEFAULT_PASS=rabbitmq
     networks:
       - app_net
+  consul-server:
+    image: consul:latest
+    command: "agent -server -bootstrap -ui -node=consul-server -client=0.0.0.0"
+    environment:
+      - CONSUL_BIND_INTERFACE=eth0
+    ports:
+      - "8500:8500"
+    networks:
+      - app_net
+    container_name: "consul-server"
+  nacos:
+    image: nacos/nacos-server:v2.1.0
+    env_file:
+      - ./conf/nacos/nacos-standalone.env
+    volumes:
+      - ./log/nacos/standalone/:/home/nacos/logs
+      - ./conf/nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+    networks:
+      - app_net
+    container_name: nacos-standalone
+  prometheus:
+    image: prom/prometheus:latest
+    restart: on-failure
+    volumes:
+      - ./conf/prometheus/prometheus-standalone.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - nacos
+    networks:
+      - app_net
+    container_name: prometheus
+  grafana:
+    image: grafana/grafana:latest
+    restart: on-failure
+    ports:
+      - 3000:3000
+    container_name: grafana
 networks:
   app_net:
     driver: bridge
