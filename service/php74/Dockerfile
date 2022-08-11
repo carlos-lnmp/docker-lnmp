@@ -50,7 +50,7 @@ RUN apt-get update \
         --with-jpeg=/usr/include \
         --with-freetype=/usr/include/freetype2 \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install -j$(nproc) bz2 dba sockets gd mysqli pdo_mysql bcmath zip opcache \
+    && docker-php-ext-install -j$(nproc) bz2 dba sockets gd mysqli pdo_mysql bcmath pcntl zip opcache \
     \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
