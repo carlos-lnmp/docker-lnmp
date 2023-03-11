@@ -1,5 +1,7 @@
 # docker-lnmp
 
+[![Security Status](https://s.murphysec.com/badge/carlos-lnmp/docker-lnmp.svg)](https://www.murphysec.com/p/carlos-lnmp/docker-lnmp)
+
 可以更方便的管理php环境。
 
 此项目只针对win10系统，Linux暂时没有经过测试，也不会测试Linux因为这个项目是我自己用的，
